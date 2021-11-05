@@ -1,0 +1,74 @@
+@page "/edit/{speakerId}"
+@inject HttpClient httpClient
+@inject NavigationManager NavManager
+
+<h1>Edit Speaker</h1>
+
+<p>This component demonstrates editing a speaker with id @speakerId.</p>
+
+@if (currentSpeaker == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <button @onclick="@GoBack" class="btn btn-success">Back</button>
+    <EditForm Model="@currentSpeaker" OnValidSubmit="@HandleUpdate">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <InputText placeholder="First Name" id="firstName" @bind-Value="@currentSpeaker.FirstName" />
+        <br />
+        <InputText placeholder="Last Name" id="lastName" @bind-Value="@currentSpeaker.LastName" />
+        <br />
+        <InputText placeholder="Email" id="email" @bind-Value="@currentSpeaker.Email" />
+        <br />
+        <InputText placeholder="Mobile Number" id="mobileNumber" @bind-Value="@currentSpeaker.MobileNumber" />
+        <br />
+        <InputText placeholder="Specialization" id="specialization" @bind-Value="@currentSpeaker.Specialization" />
+        <br />
+        <InputText placeholder="City of Residence" id="city" @bind-Value="@currentSpeaker.City" />
+        <br />
+        <InputText placeholder="Province of Residence" id="province" @bind-Value="@currentSpeaker.Province" />
+        <br />
+        <InputText placeholder="Employer" id="employer" @bind-Value="@currentSpeaker.Employer" />
+        <br />
+        <button type="submit">Submit</button>
+    </EditForm>
+
+    @code {
+    private Speaker speaker = new Speaker();
+
+    private async void HandleUpdate()
+    {
+        string endpoint = $"{baseUrl}api/Speakers/{speakerId}";
+
+        await httpClient.PutAsJsonAsync(endpoint, currentSpeaker);
+        StateHasChanged();
+        GoBack();
+    }
+}
+}
+
+@code {
+    [Parameter]
+    public string speakerId { get; set; }
+
+    Speaker currentSpeaker;
+    string baseUrl = "http://localhost:3000/";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await load();
+    }
+
+    protected async Task load()
+    {
+        currentSpeaker = await httpClient.GetFromJsonAsync<Speaker>($"{baseUrl}api/Speakers/{speakerId}");
+    }
+
+    protected void GoBack()
+    {
+        NavManager.NavigateTo("/speakers");
+    }
+}

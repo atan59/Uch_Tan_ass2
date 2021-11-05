@@ -1,0 +1,73 @@
+@page "/add"
+@inject HttpClient httpClient
+@inject NavigationManager NavManager
+
+<h1>Add Speaker</h1>
+
+<p>This component demonstrates adding a new speaker.</p>
+
+@if (speakers == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <button @onclick="@GoBack" class="btn btn-success">Back</button>
+    <EditForm Model="@speaker" OnValidSubmit="@HandleAdd">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <InputText placeholder="First Name" id="firstName" @bind-Value="@speaker.FirstName" />
+        <br />
+        <InputText placeholder="Last Name" id="lastName" @bind-Value="@speaker.LastName" />
+        <br />
+        <InputText placeholder="Email" id="email" @bind-Value="@speaker.Email" />
+        <br />
+        <InputText placeholder="Mobile Number" id="mobileNumber" @bind-Value="@speaker.MobileNumber" />
+        <br />
+        <InputText placeholder="Specialization" id="specialization" @bind-Value="@speaker.Specialization" />
+        <br />
+        <InputText placeholder="City of Residence" id="city" @bind-Value="@speaker.City" />
+        <br />
+        <InputText placeholder="Province of Residence" id="province" @bind-Value="@speaker.Province" />
+        <br />
+        <InputText placeholder="Employer" id="employer" @bind-Value="@speaker.Employer" />
+        <br />
+        <button type="submit">Submit</button>
+    </EditForm>
+
+    @code {
+    private Speaker speaker = new Speaker();
+
+    private async void HandleAdd()
+    {
+        string endpoint = $"{baseUrl}api/Speakers";
+
+        speaker.ID = Guid.NewGuid().ToString();
+
+        await httpClient.PostAsJsonAsync(endpoint, speaker);
+        StateHasChanged();
+        GoBack();
+    }
+}
+}
+
+@code {
+    Speaker[] speakers;
+    string baseUrl = "http://localhost:3000/";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await load();
+    }
+
+    protected async Task load()
+    {
+        speakers = await httpClient.GetFromJsonAsync<Speaker[]>($"{baseUrl}api/Speakers");
+    }
+
+    protected void GoBack()
+    {
+        NavManager.NavigateTo("/speakers");
+    }
+}

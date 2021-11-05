@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace SpeakersApi.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211104213845_InitialCreate")]
+    [Migration("20211104232605_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,10 +21,8 @@ namespace SpeakersApi.Data.Migrations
 
             modelBuilder.Entity("SpeakersApi.Models.Speaker", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("ID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
@@ -57,7 +55,7 @@ namespace SpeakersApi.Data.Migrations
                     b.HasData(
                         new
                         {
-                            ID = 1,
+                            ID = "e42ccd67-5b62-40ba-9304-52c84b8d7485",
                             City = "Chilliwack",
                             Email = "jim@potter.com",
                             Employer = "BC Hydro",
@@ -69,7 +67,7 @@ namespace SpeakersApi.Data.Migrations
                         },
                         new
                         {
-                            ID = 2,
+                            ID = "ceb347c4-5d8a-43e1-9289-c48319ddf777",
                             City = "Kelowna",
                             Email = "jane@douglas.com",
                             Employer = "Kelowna Company",
@@ -81,7 +79,7 @@ namespace SpeakersApi.Data.Migrations
                         },
                         new
                         {
-                            ID = 3,
+                            ID = "7a903755-9953-4d2a-bc8d-8c86d66fed33",
                             City = "Toronto",
                             Email = "tom@gardner.com",
                             Employer = "University of Toronto",
@@ -93,7 +91,7 @@ namespace SpeakersApi.Data.Migrations
                         },
                         new
                         {
-                            ID = 4,
+                            ID = "7ab83788-559e-4f13-a3af-6ac84da0335f",
                             City = "Edmonton",
                             Email = "ann@lee.com",
                             Employer = "Edmonton Company",
@@ -105,7 +103,7 @@ namespace SpeakersApi.Data.Migrations
                         },
                         new
                         {
-                            ID = 5,
+                            ID = "af9e771c-9165-4a21-a4c6-9aa10dd0994e",
                             City = "Saskatoon",
                             Email = "james@jones.com",
                             Employer = "Saskatoon Public Library",
@@ -117,7 +115,7 @@ namespace SpeakersApi.Data.Migrations
                         },
                         new
                         {
-                            ID = 6,
+                            ID = "a83399cc-0ff1-49c0-b2b0-d4d133e67117",
                             City = "Montreal",
                             Email = "susan@taylor.com",
                             Employer = "Quebec Power Company",
@@ -129,7 +127,7 @@ namespace SpeakersApi.Data.Migrations
                         },
                         new
                         {
-                            ID = 7,
+                            ID = "14f677c1-4223-4e5d-9ea2-ebff1047dec7",
                             City = "Vancouver",
                             Email = "peter@white.com",
                             Employer = "BCIT",
@@ -141,7 +139,7 @@ namespace SpeakersApi.Data.Migrations
                         },
                         new
                         {
-                            ID = 8,
+                            ID = "668e2221-b913-42a9-9752-1de110df41df",
                             City = "Vancouver",
                             Email = "philip@fox.com",
                             Employer = "BCIT",
@@ -153,7 +151,7 @@ namespace SpeakersApi.Data.Migrations
                         },
                         new
                         {
-                            ID = 9,
+                            ID = "6487f845-2d16-481f-9675-5b7209488c89",
                             City = "Vancouver",
                             Email = "donna@ray.com",
                             Employer = "BCIT",

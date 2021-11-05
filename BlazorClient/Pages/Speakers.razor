@@ -1,51 +1,70 @@
 ﻿@page "/speakers"
 @using SpeakersApi.Models
 @inject HttpClient httpClient
+@inject NavigationManager NavManager
+
+<style>
+  .addBtn {
+    margin-bottom: 10px;
+  }
+</style>
 
 <h1>Speakers</h1>
 
-@if (speakers == null) {
-<p><em>Loading...</em></p>
-} else {
-<table class='table table-hover'>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Email</th>
-      <th>Mobile Number</th>
-      <th>Area of Specialization</th>
-      <th>City</th>
-      <th>Employer</th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach (var item in speakers) {
-    <tr>
-      <td>@item.ID</td>
-      <td>@item.FirstName</td>
-      <td>@item.LastName</td>
-      <td>@item.Email</td>
-      <td>@item.MobileNumber</td>
-      <td>@item.Specialization</td>
-      <td>@item.City</td>
-      <td>@item.Employer</td>
-    </tr>
-    }
-  </tbody>
-</table>
+@if (speakers == null)
+{
+  <p><em>Loading...</em></p>
+}
+else
+{
+  <button @onclick="@Add" class="btn btn-success addBtn">Add</button>
+  <table class='table table-hover'>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var item in speakers)
+      {
+        <tr>
+          <td>@item.FirstName @item.LastName</td>
+          <td><a class="btn btn-success btn-sm" @onclick="@(() => Edit(item.ID))">Edit</a></td>
+          <td><a class="btn btn-danger btn-sm" @onclick="@(() => Delete(item.ID))">Delete</a></td>
+        </tr>
+      }
+    </tbody>
+  </table>
 }
 
 @code {
   Speaker[] speakers;
-  string baseUrl = "https://localhost:3000/";
+  string baseUrl = "http://localhost:3000/";
 
-  protected override async Task OnInitializedAsync() {
+  protected override async Task OnInitializedAsync()
+  {
     await load();
   }
 
-  protected async Task load() {
+  protected async Task load()
+  {
     speakers = await httpClient.GetFromJsonAsync<Speaker[]>($"{baseUrl}api/Speakers");
   }
+
+  protected void Add()
+    {
+        NavManager.NavigateTo("/add");
+    }
+
+    protected void Edit(string id)
+    {
+        NavManager.NavigateTo($"/edit/{id}");
+    }
+
+    protected void Delete(string id)
+    {
+        NavManager.NavigateTo($"/delete/{id}");
+    }
 }

@@ -11,7 +11,7 @@ namespace SpeakersApi.Data
         public static List<Speaker> GetSpeakers() {
             List<Speaker> speakers = new List<Speaker>() {
                 new Speaker() {
-                    ID = 1,
+                    ID = Guid.NewGuid().ToString(),
                     FirstName = "Jim",
                     LastName = "Potter",
                     Email = "jim@potter.com",
@@ -22,7 +22,7 @@ namespace SpeakersApi.Data
                     Employer = "BC Hydro"
                 },
                 new Speaker() {
-                    ID = 2,
+                    ID = Guid.NewGuid().ToString(),
                     FirstName = "Jane",
                     LastName = "Douglas",
                     Email = "jane@douglas.com",
@@ -33,7 +33,7 @@ namespace SpeakersApi.Data
                     Employer = "Kelowna Company"
                 },
                 new Speaker() {
-                    ID = 3,
+                    ID = Guid.NewGuid().ToString(),
                     FirstName = "Tom",
                     LastName = "Gardner",
                     Email = "tom@gardner.com",
@@ -44,7 +44,7 @@ namespace SpeakersApi.Data
                     Employer = "University of Toronto"
                 },
                 new Speaker() {
-                    ID = 4,
+                    ID = Guid.NewGuid().ToString(),
                     FirstName = "Ann",
                     LastName = "Lee",
                     Email = "ann@lee.com",
@@ -55,7 +55,7 @@ namespace SpeakersApi.Data
                     Employer = "Edmonton Company"
                 },
                 new Speaker() {
-                    ID = 5,
+                    ID = Guid.NewGuid().ToString(),
                     FirstName = "James",
                     LastName = "Jones",
                     Email = "james@jones.com",
@@ -66,7 +66,7 @@ namespace SpeakersApi.Data
                     Employer = "Saskatoon Public Library"
                 },
                 new Speaker() {
-                    ID = 6,
+                    ID = Guid.NewGuid().ToString(),
                     FirstName = "Susan",
                     LastName = "Taylor",
                     Email = "susan@taylor.com",
@@ -77,7 +77,7 @@ namespace SpeakersApi.Data
                     Employer = "Quebec Power Company"
                 },
                 new Speaker() {
-                    ID = 7,
+                    ID = Guid.NewGuid().ToString(),
                     FirstName = "Peter",
                     LastName = "White",
                     Email = "peter@white.com",
@@ -88,7 +88,7 @@ namespace SpeakersApi.Data
                     Employer = "BCIT"
                 },
                 new Speaker() {
-                    ID = 8,
+                    ID = Guid.NewGuid().ToString(),
                     FirstName = "Philip",
                     LastName = "Fox",
                     Email = "philip@fox.com",
@@ -99,7 +99,7 @@ namespace SpeakersApi.Data
                     Employer = "BCIT"
                 },
                 new Speaker() {
-                    ID = 9,
+                    ID = Guid.NewGuid().ToString(),
                     FirstName = "Donna",
                     LastName = "Ray",
                     Email = "donna@ray.com",

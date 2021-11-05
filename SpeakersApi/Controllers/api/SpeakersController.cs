@@ -31,7 +31,7 @@ namespace SpeakersApi.Controllers_api
 
         // GET: api/Speakers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Speaker>> GetSpeaker(int id)
+        public async Task<ActionResult<Speaker>> GetSpeaker(string id)
         {
             var speaker = await _context.Speaker.FindAsync(id);
 
@@ -46,7 +46,7 @@ namespace SpeakersApi.Controllers_api
         // PUT: api/Speakers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSpeaker(int id, Speaker speaker)
+        public async Task<IActionResult> PutSpeaker(string id, Speaker speaker)
         {
             if (id != speaker.ID)
             {
@@ -80,14 +80,28 @@ namespace SpeakersApi.Controllers_api
         public async Task<ActionResult<Speaker>> PostSpeaker(Speaker speaker)
         {
             _context.Speaker.Add(speaker);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (SpeakerExists(speaker.ID))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             return CreatedAtAction("GetSpeaker", new { id = speaker.ID }, speaker);
         }
 
         // DELETE: api/Speakers/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSpeaker(int id)
+        public async Task<IActionResult> DeleteSpeaker(string id)
         {
             var speaker = await _context.Speaker.FindAsync(id);
             if (speaker == null)
@@ -101,7 +115,7 @@ namespace SpeakersApi.Controllers_api
             return NoContent();
         }
 
-        private bool SpeakerExists(int id)
+        private bool SpeakerExists(string id)
         {
             return _context.Speaker.Any(e => e.ID == id);
         }
