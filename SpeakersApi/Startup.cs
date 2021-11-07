@@ -37,8 +37,15 @@ namespace SpeakersApi
                 builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
             }));
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContext")));
+            //services.AddDbContext<ApplicationDbContext>(options =>
+                    //options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContext")));
+            var host = Configuration["DBHOST"] ?? "localhost";
+            var port = Configuration["DBPORT"] ?? "1444";
+            var user = Configuration["DBUSER"] ?? "sa";
+            var pwd = Configuration["DBPASSWORD"] ?? "SqlExpress!";
+
+            var constr = $"Server=tcp:{host},{port};Database=speakersdb;UID={user};PWD={pwd};";
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(constr));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
