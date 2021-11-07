@@ -1,15 +1,12 @@
-﻿@page "/speakers"
+﻿@page "/"
 @using SpeakersApi.Models
 @inject HttpClient httpClient
 @inject NavigationManager NavManager
 
-<style>
-  .addBtn {
-    margin-bottom: 10px;
-  }
-</style>
+<h1>List of Speakers</h1>
+<hr />
 
-<h1>Speakers</h1>
+<p>You are currently viewing a list of the existing speakers.</p>
 
 @if (speakers == null)
 {
@@ -17,13 +14,13 @@
 }
 else
 {
-  <button @onclick="@Add" class="btn btn-success addBtn">Add</button>
-  <table class='table table-hover'>
+  <button @onclick="@Add" class="btn btn-primary addBtn">Add Speaker</button>
+  <table class='table table-striped table-hover'>
     <thead>
       <tr>
         <th>Name</th>
-        <th></th>
-        <th></th>
+        <th class="btnCol"></th>
+        <th class="btnCol"></th>
       </tr>
     </thead>
     <tbody>
@@ -31,8 +28,8 @@ else
       {
         <tr>
           <td>@item.FirstName @item.LastName</td>
-          <td><a class="btn btn-success btn-sm" @onclick="@(() => Edit(item.ID))">Edit</a></td>
-          <td><a class="btn btn-danger btn-sm" @onclick="@(() => Delete(item.ID))">Delete</a></td>
+          <td class="btnCol"><button class="btn btn-primary" @onclick="@(() => Edit(item.ID))">Edit</button></td>
+          <td class="btnCol"><button class="btn btn-danger" @onclick="@(() => Delete(item.ID))">Delete</button></td>
         </tr>
       }
     </tbody>

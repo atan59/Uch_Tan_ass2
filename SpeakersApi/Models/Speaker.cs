@@ -9,7 +9,6 @@ namespace SpeakersApi.Models
     public class Speaker
     {
         [Key]
-        [Required]
         public string ID { get; set; }
         [Display(Name = "First Name")]
         [Required]

@@ -1,0 +1,8 @@
+﻿.addBtn {
+  margin-bottom: 10px;
+}
+
+.btnCol {
+  justify-content: flex-end;
+  width: 100px;
+}

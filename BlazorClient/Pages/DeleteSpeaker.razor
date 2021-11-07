@@ -3,8 +3,9 @@
 @inject NavigationManager NavManager
 
 <h1>Delete Speaker</h1>
+<hr />
 
-<p>This component demonstrates deleting a speaker with id @speakerId.</p>
+<p>Are you sure you want to delete the speaker with the following ID: @speakerId?</p>
 
 @if (currentSpeaker == null)
 {
@@ -12,41 +13,59 @@
 }
 else
 {
-    <button @onclick="@GoBack" class="btn btn-success">Back</button>
-    <EditForm Model="@currentSpeaker" OnValidSubmit="@HandleDelete">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
+    <div>
+        <button @onclick="@GoBack" class="btn btn-info">Back</button>
+        <EditForm Model="@currentSpeaker" OnValidSubmit="@HandleDelete">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            
+            <label for="firstName">First Name:</label>
+            <br />
+            <InputText disabled placeholder="First Name" id="firstName" @bind-Value="@currentSpeaker.FirstName" />
+            <br />
+            <label for="lastName">Last Name:</label>
+            <br />
+            <InputText disabled placeholder="Last Name" id="lastName" @bind-Value="@currentSpeaker.LastName" />
+            <br />
+            <label for="email">Email:</label>
+            <br />
+            <InputText disabled placeholder="Email" id="email" @bind-Value="@currentSpeaker.Email" />
+            <br />
+            <label for="mobileNumber">Mobile Number:</label>
+            <br />
+            <InputText disabled placeholder="Mobile Number" id="mobileNumber" @bind-Value="@currentSpeaker.MobileNumber" />
+            <br />
+            <label for="specialization">Specialization:</label>
+            <br />
+            <InputText disabled placeholder="Specialization" id="specialization" @bind-Value="@currentSpeaker.Specialization" />
+            <br />
+            <label for="city">City of Residence:</label>
+            <br />
+            <InputText disabled placeholder="City of Residence" id="city" @bind-Value="@currentSpeaker.City" />
+            <br />
+            <label for="province">Province of Residence:</label>
+            <br />
+            <InputText disabled placeholder="Province of Residence" id="province" @bind-Value="@currentSpeaker.Province" />
+            <br />
+            <label for="employer">Employer:</label>
+            <br />
+            <InputText disabled placeholder="Employer" id="employer" @bind-Value="@currentSpeaker.Employer" />
+            <br />
+            <button class="btn btn-danger" type="submit" value="Delete">Delete</button>
 
-        <InputText disabled placeholder="First Name" id="firstName" @bind-Value="@currentSpeaker.FirstName" />
-        <br />
-        <InputText disabled placeholder="Last Name" id="lastName" @bind-Value="@currentSpeaker.LastName" />
-        <br />
-        <InputText disabled placeholder="Email" id="email" @bind-Value="@currentSpeaker.Email" />
-        <br />
-        <InputText disabled placeholder="Mobile Number" id="mobileNumber" @bind-Value="@currentSpeaker.MobileNumber" />
-        <br />
-        <InputText disabled placeholder="Specialization" id="specialization" @bind-Value="@currentSpeaker.Specialization" />
-        <br />
-        <InputText disabled placeholder="City of Residence" id="city" @bind-Value="@currentSpeaker.City" />
-        <br />
-        <InputText disabled placeholder="Province of Residence" id="province" @bind-Value="@currentSpeaker.Province" />
-        <br />
-        <InputText disabled placeholder="Employer" id="employer" @bind-Value="@currentSpeaker.Employer" />
-        <br />
-        <button type="submit" value="Delete" class="btn btn-danger">Submit</button>
+            @code {
+            private Speaker speaker = new Speaker();
 
-        @code {
-        private Speaker speaker = new Speaker();
-
-        protected async void HandleDelete()
-        {
-            string endpoint = $"{baseUrl}api/Speakers/{speakerId}";
-            await httpClient.DeleteAsync(endpoint);
-            StateHasChanged();
-            GoBack();
+            protected async void HandleDelete()
+            {
+                string endpoint = $"{baseUrl}api/Speakers/{speakerId}";
+                await httpClient.DeleteAsync(endpoint);
+                StateHasChanged();
+                GoBack();
+            }
         }
-    }
-</EditForm>
+    </EditForm>
+</div>
 }
 
 @code {
@@ -68,6 +87,6 @@ else
 
     protected void GoBack()
     {
-        NavManager.NavigateTo("/speakers");
+        NavManager.NavigateTo("/");
     }
 }

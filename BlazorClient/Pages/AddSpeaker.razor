@@ -3,8 +3,9 @@
 @inject NavigationManager NavManager
 
 <h1>Add Speaker</h1>
+<hr />
 
-<p>This component demonstrates adding a new speaker.</p>
+<p>You are currently creating a new speaker.</p>
 
 @if (speakers == null)
 {
@@ -12,28 +13,44 @@
 }
 else
 {
-    <button @onclick="@GoBack" class="btn btn-success">Back</button>
+    <button @onclick="@GoBack" class="btn btn-info">Back</button>
     <EditForm Model="@speaker" OnValidSubmit="@HandleAdd">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
+        <label for="firstName">First Name:</label>
+        <br />
         <InputText placeholder="First Name" id="firstName" @bind-Value="@speaker.FirstName" />
+        <br />
+        <label for="lastName">Last Name:</label>
         <br />
         <InputText placeholder="Last Name" id="lastName" @bind-Value="@speaker.LastName" />
         <br />
+        <label for="email">Email:</label>
+        <br />
         <InputText placeholder="Email" id="email" @bind-Value="@speaker.Email" />
+        <br />
+        <label for="mobileNumber">Mobile Number:</label>
         <br />
         <InputText placeholder="Mobile Number" id="mobileNumber" @bind-Value="@speaker.MobileNumber" />
         <br />
+        <label for="specialization">Specialization:</label>
+        <br />
         <InputText placeholder="Specialization" id="specialization" @bind-Value="@speaker.Specialization" />
+        <br />
+        <label for="city">City of Residence:</label>
         <br />
         <InputText placeholder="City of Residence" id="city" @bind-Value="@speaker.City" />
         <br />
+        <label for="province">Province of Residence:</label>
+        <br />
         <InputText placeholder="Province of Residence" id="province" @bind-Value="@speaker.Province" />
+        <br />
+        <label for="employer">Employer:</label>
         <br />
         <InputText placeholder="Employer" id="employer" @bind-Value="@speaker.Employer" />
         <br />
-        <button type="submit">Submit</button>
+        <button class="btn btn-success" type="submit">Submit</button>
     </EditForm>
 
     @code {
@@ -68,6 +85,6 @@ else
 
     protected void GoBack()
     {
-        NavManager.NavigateTo("/speakers");
+        NavManager.NavigateTo("/");
     }
 }
